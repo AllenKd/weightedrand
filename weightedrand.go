@@ -35,6 +35,14 @@ type Chooser struct {
 	max    int
 }
 
+func (c *Chooser) AddChoice(choice Choice) {
+	c.data = append(c.data, choice)
+}
+
+func (c *Chooser) Settle() (*Chooser, error) {
+	return NewChooser(c.data...)
+}
+
 // NewChooser initializes a new Chooser for picking from the provided choices.
 func NewChooser(choices ...Choice) (*Chooser, error) {
 	sort.Slice(choices, func(i, j int) bool {
